@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://netsat.com/sitemap.xml
+Sitemap: https://www.netsat.com/sitemap.xml
