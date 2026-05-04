@@ -1,16 +1,24 @@
-cat << 'EOF' > index.html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Netsat | حلول فضائية خارقة</title>
+    <title>Netsat | حلول البث الفضائي عبر الإنترنت - القاهرة</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Netsat - وسيطك التقني لتشغيل قناتك على نايل سات وعرب سات باستخدام برمجيات مفتوحة المصدر معدلة ومطورة. حلول البث عبر الإنترنت بتكلفة تنافسية.">
+    <meta name="keywords" content="بث فضائي, نايل سات, عرب سات, بث عبر الإنترنت, SRT, MediaMTX, OPA, Netsat, قناة فضائية">
+    <meta name="author" content="Netsat">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.netsat.com/">
+    <link rel="alternate" href="https://www.netsat.com/?lang=ar" hreflang="ar">
+    <link rel="alternate" href="https://www.netsat.com/?lang=en" hreflang="en">
+    <link rel="alternate" href="https://www.netsat.com/" hreflang="x-default">
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- GSAP & Three.js & Typed & AOS -->
+    <!-- Three.js & GSAP & Typed & AOS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -18,22 +26,24 @@ cat << 'EOF' > index.html
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Cairo', sans-serif;
             overflow-x: hidden;
             cursor: none;
-            background: #000;
+            background: radial-gradient(circle at 20% 30%, #0a0f2a, #000000);
+            color: white;
         }
         /* تخصيص المؤشر */
         .custom-cursor {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             border: 2px solid cyan;
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            transition: 0.05s linear;
+            transition: 0.08s linear;
             transform: translate(-50%, -50%);
             backdrop-filter: invert(1);
         }
@@ -54,7 +64,8 @@ cat << 'EOF' > index.html
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, #0a0f2a, #000);
+            background: #000000dd;
+            backdrop-filter: blur(10px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -62,25 +73,26 @@ cat << 'EOF' > index.html
             transition: opacity 1s;
         }
         .loader-logo {
-            font-size: 4rem;
+            font-size: 5rem;
             font-weight: 900;
             background: linear-gradient(45deg, cyan, blue);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            animation: pulse 1.5s infinite;
+            animation: pulse 1.2s infinite;
         }
         @keyframes pulse {
-            0% { opacity: 0.3; text-shadow: 0 0 0px cyan; }
+            0% { opacity: 0.4; text-shadow: 0 0 0 cyan; }
             100% { opacity: 1; text-shadow: 0 0 30px cyan; }
         }
-        /* تأثيرات عامة */
+        /* البطاقات الزجاجية */
         .glass-card {
-            background: rgba(10, 20, 40, 0.5);
+            background: rgba(10, 20, 40, 0.55);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(0, 255, 255, 0.3);
             border-radius: 2rem;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
         .glass-card:hover {
             transform: translateY(-10px) scale(1.02);
@@ -90,104 +102,108 @@ cat << 'EOF' > index.html
         .btn-glow {
             background: linear-gradient(135deg, #00c6ff, #0072ff);
             transition: 0.3s;
+            border: none;
+            cursor: pointer;
         }
         .btn-glow:hover {
             box-shadow: 0 0 20px cyan;
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
         input, select, textarea {
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.7);
             border: 1px solid #0ff;
             border-radius: 1rem;
+            padding: 0.75rem 1rem;
+            color: white;
             transition: 0.2s;
+            width: 100%;
         }
         input:focus, select:focus, textarea:focus {
             border-color: #f0f;
             box-shadow: 0 0 15px #f0f;
+            outline: none;
         }
-        /* إخفاء التمرير الافتراضي */
-        ::-webkit-scrollbar {
-            width: 8px;
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: cyan; border-radius: 10px; }
+        canvas { position: fixed; top: 0; left: 0; z-index: -2; width: 100%; height: 100%; }
+        .lang-toggle {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            border: 1px solid cyan;
+            border-radius: 40px;
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: 0.2s;
         }
-        ::-webkit-scrollbar-track {
-            background: #111;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: cyan;
-            border-radius: 10px;
-        }
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -2;
-        }
-        .no-cursor {
-            cursor: default;
-        }
+        .lang-toggle:hover { background: cyan; color: black; }
+        .hidden-lang { display: none; }
     </style>
 </head>
-<body class="text-white">
+<body>
 
     <!-- مؤشر مخصص -->
     <div class="custom-cursor"></div>
     <div class="cursor-dot"></div>
 
-    <!-- شاشة التحميل -->
-    <div id="loader">
-        <div class="loader-logo">Netsat</div>
-    </div>
+    <!-- شاشة تحميل -->
+    <div id="loader"><div class="loader-logo">🚀 Netsat</div></div>
 
-    <!-- مزود صوت خلفية اختياري -->
-    <div id="audio-control" class="fixed bottom-5 left-5 z-50 bg-black/50 rounded-full p-3 cursor-pointer backdrop-blur" onclick="toggleAudio()">
+    <!-- زر تشغيل الموسيقى -->
+    <div id="audio-control" class="fixed bottom-5 left-5 z-50 bg-black/60 rounded-full p-3 cursor-pointer backdrop-blur border border-cyan-400" onclick="toggleAudio()">
         <i id="audio-icon" class="fas fa-volume-mute text-cyan-400 text-2xl"></i>
     </div>
-    <audio id="bg-music" loop preload="auto">
+    <audio id="bg-music" loop preload="none">
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="relative z-10 container mx-auto px-5 py-6">
-        <!-- نفس الهيكل السابق ولكن مع إضافة بيانات AOS وأنيميشن -->
-        <div class="flex justify-between items-center mb-12">
+    <div class="relative z-10 container mx-auto px-5 py-6 max-w-7xl">
+        <!-- رأس الموقع -->
+        <div class="flex justify-between items-center mb-12 flex-wrap gap-4">
             <div class="flex items-center gap-3" data-aos="fade-right">
                 <i class="fas fa-satellite-dish text-5xl text-cyan-400 animate-pulse"></i>
                 <span class="text-4xl font-extrabold bg-gradient-to-r from-cyan-300 to-blue-500 bg-clip-text text-transparent">Netsat</span>
+                <span class="text-sm bg-white/20 rounded-full px-3 py-1">القاهرة</span>
             </div>
-            <div class="lang-toggle bg-white/10 backdrop-blur border border-cyan-400 rounded-full px-4 py-2 cursor-pointer" onclick="toggleLanguage()" data-aos="fade-left">
+            <div class="lang-toggle" onclick="toggleLanguage()">
                 <span id="lang-btn">🌐 العربية</span>
             </div>
         </div>
 
         <!-- المحتوى العربي -->
-        <div id="ar-content" dir="rtl">
+        <div id="ar-content">
             <div class="text-center my-10" data-aos="zoom-in">
-                <h1 class="text-6xl md:text-8xl font-black"><span id="typed-ar"></span></h1>
-                <p class="text-xl text-cyan-100 mt-6 max-w-3xl mx-auto">وسيطك التقني لتشغيل قناتك على <strong class="text-yellow-300">نايل سات & عرب سات</strong> باستخدام برمجيات مفتوحة المصدر مُعدّلة ومُطورة.</p>
+                <h1 class="text-6xl md:text-7xl font-black"><span id="typed-ar"></span></h1>
+                <p class="text-xl text-cyan-100 mt-6 max-w-3xl mx-auto">وسيطك التقني لتشغيل قناتك على <strong class="text-yellow-300">نايل سات & عرب سات</strong> باستخدام برمجيات مفتوحة المصدر معدّلة ومطورة تنافس الحلول المدفوعة.</p>
             </div>
+            <!-- البطاقات الثلاث -->
             <div class="grid md:grid-cols-3 gap-8 my-20">
                 <div class="glass-card p-6 text-center" data-aos="flip-left">
                     <i class="fas fa-code-branch text-6xl text-cyan-300 mb-4"></i>
-                    <h3 class="text-2xl font-bold mb-3">تعديل وتطوير OSS</h3>
-                    <p>نأخذ OPA, MediaMTX, FFmpeg, LibreTime ونعدلها لتناسب احتياجاتك بميزات تفوق البرامج التجارية.</p>
+                    <h3 class="text-2xl font-bold mb-3">تعديل وتطوير البرمجيات مفتوحة المصدر</h3>
+                    <p>نأخذ <strong>OPA, MediaMTX, FFmpeg, LibreTime</strong> ونعدلها لتناسب احتياجات قناتك بدقة، ونضيف ميزات تتفوق على الأنظمة التجارية مثل Harmonic وEnvivio.</p>
                 </div>
                 <div class="glass-card p-6 text-center" data-aos="flip-up">
                     <i class="fas fa-charging-station text-6xl text-cyan-300 mb-4"></i>
                     <h3 class="text-2xl font-bold mb-3">حل متكامل للبث عبر IP</h3>
-                    <p>تهيئة سيرفرك وتوصيله بمنصة القمر عبر SRT/Zixi بجودة 24/7.</p>
+                    <p>تهيئة الخادم الخاص بك (أو السحابي) وتوصيله بمنصة القمر الصناعي عبر بروتوكول <strong>SRT/Zixi</strong> لضمان وصول الإشارة بجودة عالية وأمان.</p>
                 </div>
                 <div class="glass-card p-6 text-center" data-aos="flip-right">
                     <i class="fas fa-microchip text-6xl text-cyan-300 mb-4"></i>
                     <h3 class="text-2xl font-bold mb-3">الأجهزة الموصى بها</h3>
-                    <p>4 نوى CPU، 8GB رام، SSD 120GB، إنترنت FTTH بسرعة 20Mbps رفع.</p>
+                    <p>خادم بمواصفات: <strong>4 أنوية CPU، 8GB رام، 120GB SSD</strong>، اتصال إنترنت FTTH بسرعة رفع 20 ميجابت/ثانية على الأقل. نرشدك لاختيار الأنسب.</p>
                 </div>
             </div>
+            <!-- بطاقة المنافسة -->
             <div class="glass-card p-8 my-16 text-center" data-aos="zoom-in-up">
                 <i class="fas fa-trophy text-5xl text-yellow-400 mb-3"></i>
                 <h2 class="text-4xl font-bold">ننافس الحلول المدفوعة بـ 1/10 التكلفة</h2>
-                <p class="text-lg mt-3">أنظمة مثل Harmonic أو Envivio باهظة الثمن، نحن نقدم بديلاً مفتوحاً معدلاً مع دعم فني متميز.</p>
+                <p class="text-lg mt-3 max-w-4xl mx-auto">أنظمة مثل Harmonic أو Envivio أو عناكب السحابة تقدم نفس الميزات لكن بتراخيص باهظة. نحن نقدم <strong class="text-cyan-300">حلاً مفتوح المصدر معدلاً بالكامل</strong> مع دعم فني وتشغيل 24/7، وضمان جودة البث.</p>
             </div>
+            <!-- نموذج الاتصال -->
             <div id="contact" class="glass-card p-8 my-10" data-aos="fade-up">
                 <h2 class="text-3xl font-bold text-center mb-4">📡 اطلب خدمة Netsat الآن</h2>
+                <p class="text-center text-gray-300 mb-6">املأ البيانات وسنرد عليك خلال 24 ساعة عبر واتساب أو البريد الإلكتروني</p>
                 <form id="contact-form-ar" onsubmit="sendWhatsApp(event, 'ar')" class="space-y-5">
                     <div class="grid md:grid-cols-2 gap-5">
                         <input type="text" name="name" placeholder="الاسم الكامل" required>
@@ -200,45 +216,87 @@ cat << 'EOF' > index.html
                         <option value="Arabsat">عرب سات</option>
                         <option value="Both">كلاهما</option>
                     </select>
-                    <textarea name="message" rows="3" placeholder="تفاصيل إضافية"></textarea>
-                    <button type="submit" class="btn-glow w-full py-3 rounded-full font-bold text-lg"><i class="fab fa-whatsapp text-xl ml-2"></i> إرسال عبر واتساب</button>
+                    <textarea name="message" rows="3" placeholder="تفاصيل إضافية (ساعات البث، نوع المحتوى، ....)"></textarea>
+                    <button type="submit" class="btn-glow w-full py-3 rounded-full font-bold text-lg flex justify-center items-center gap-2"><i class="fab fa-whatsapp text-xl"></i> إرسال عبر واتساب</button>
                 </form>
-                <div class="flex justify-center gap-6 mt-8 flex-wrap">
-                    <a href="https://wa.me/201122394912" target="_blank" class="bg-green-700/50 px-4 py-2 rounded-full flex items-center gap-2"><i class="fab fa-whatsapp"></i> +201122394912</a>
-                    <a href="https://wa.me/249912500618" target="_blank" class="bg-green-700/50 px-4 py-2 rounded-full flex items-center gap-2"><i class="fab fa-whatsapp"></i> +249912500618</a>
-                    <a href="mailto:support@freelancers-arab.com" class="bg-blue-700/50 px-4 py-2 rounded-full flex items-center gap-2"><i class="fas fa-envelope"></i> support@freelancers-arab.com</a>
+                <div class="flex justify-center gap-6 mt-8 flex-wrap contact-links">
+                    <a href="https://wa.me/201122394912" target="_blank" class="bg-green-700/60 px-4 py-2 rounded-full flex items-center gap-2 hover:scale-105 transition"><i class="fab fa-whatsapp"></i> +201122394912</a>
+                    <a href="https://wa.me/249912500618" target="_blank" class="bg-green-700/60 px-4 py-2 rounded-full flex items-center gap-2 hover:scale-105 transition"><i class="fab fa-whatsapp"></i> +249912500618</a>
+                    <a href="mailto:support@freelancers-arab.com" class="bg-blue-700/60 px-4 py-2 rounded-full flex items-center gap-2 hover:scale-105 transition"><i class="fas fa-envelope"></i> support@freelancers-arab.com</a>
                 </div>
             </div>
         </div>
 
-        <!-- المحتوى الإنجليزي (مماثل) -->
-        <div id="en-content" dir="ltr" class="hidden">
-            <!-- نفس البنية ولكن بالإنجليزية وسأختصرها للطول ولكن سأكتبها كاملة في الملف النهائي -->
+        <!-- المحتوى الإنجليزي (مخفي في البداية) -->
+        <div id="en-content" dir="ltr" class="hidden-lang">
             <div class="text-center my-10" data-aos="zoom-in">
-                <h1 class="text-6xl md:text-8xl font-black"><span id="typed-en"></span></h1>
-                <p class="text-xl text-cyan-100 mt-6">Your technical broker for <strong class="text-yellow-300">Nilesat & Arabsat</strong> using enhanced open-source software.</p>
+                <h1 class="text-6xl md:text-7xl font-black"><span id="typed-en"></span></h1>
+                <p class="text-xl text-cyan-100 mt-6">Your technical broker to launch your channel on <strong class="text-yellow-300">Nilesat & Arabsat</strong> using enhanced open-source software, competing with paid solutions.</p>
             </div>
             <div class="grid md:grid-cols-3 gap-8 my-20">
-                <div class="glass-card p-6 text-center" data-aos="flip-left"><i class="fas fa-code-branch text-6xl text-cyan-300 mb-4"></i><h3 class="text-2xl font-bold mb-3">Modifying OSS</h3><p>We customize OPA, MediaMTX, FFmpeg to outperform paid solutions.</p></div>
-                <div class="glass-card p-6 text-center" data-aos="flip-up"><i class="fas fa-charging-station text-6xl text-cyan-300 mb-4"></i><h3 class="text-2xl font-bold mb-3">IP Contribution</h3><p>Server setup & SRT/Zixi connection to satellite teleport.</p></div>
-                <div class="glass-card p-6 text-center" data-aos="flip-right"><i class="fas fa-microchip text-6xl text-cyan-300 mb-4"></i><h3 class="text-2xl font-bold mb-3">Hardware</h3><p>4-core CPU, 8GB RAM, SSD, 20 Mbps upload.</p></div>
+                <div class="glass-card p-6 text-center" data-aos="flip-left">
+                    <i class="fas fa-code-branch text-6xl text-cyan-300 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Modifying & Enhancing OSS</h3>
+                    <p>We customize <strong>OPA, MediaMTX, FFmpeg, LibreTime</strong> to fit your channel's needs, adding features that surpass commercial systems.</p>
+                </div>
+                <div class="glass-card p-6 text-center" data-aos="flip-up">
+                    <i class="fas fa-charging-station text-6xl text-cyan-300 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">IP Contribution Ready</h3>
+                    <p>Server setup (on-prem or cloud) and connection to satellite teleport using <strong>SRT/Zixi</strong> for high-quality, low-latency delivery.</p>
+                </div>
+                <div class="glass-card p-6 text-center" data-aos="flip-right">
+                    <i class="fas fa-microchip text-6xl text-cyan-300 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-3">Recommended Hardware</h3>
+                    <p><strong>4-core CPU, 8GB RAM, 120GB SSD</strong>, fiber internet with 20 Mbps upload. We guide you to the best choice.</p>
+                </div>
             </div>
-            <div class="glass-card p-8 my-16 text-center" data-aos="zoom-in-up"><i class="fas fa-trophy text-5xl text-yellow-400 mb-3"></i><h2 class="text-4xl font-bold">Competing at 1/10th the cost</h2><p class="text-lg mt-3">A fully customized open-source stack with 24/7 support.</p></div>
-            <div id="contact-en" class="glass-card p-8 my-10"><h2 class="text-3xl font-bold text-center mb-4">📡 Request Netsat Service</h2>
+            <div class="glass-card p-8 my-16 text-center" data-aos="zoom-in-up">
+                <i class="fas fa-trophy text-5xl text-yellow-400 mb-3"></i>
+                <h2 class="text-4xl font-bold">Competing with Paid Solutions at 1/10th the Cost</h2>
+                <p class="text-lg mt-3">Commercial systems like Harmonic or cloud encoders cost a fortune. We offer a <strong class="text-cyan-300">fully customized open‑source stack</strong> with 24/7 technical support and broadcast SLA.</p>
+            </div>
+            <div id="contact-en" class="glass-card p-8 my-10">
+                <h2 class="text-3xl font-bold text-center mb-4">📡 Request Netsat Service</h2>
+                <p class="text-center text-gray-300 mb-6">Fill the form – we'll contact you via WhatsApp or email</p>
                 <form id="contact-form-en" onsubmit="sendWhatsApp(event, 'en')" class="space-y-5">
-                    <div class="grid md:grid-cols-2 gap-5"><input type="text" name="name" placeholder="Full Name" required><input type="email" name="email" placeholder="Email" required><input type="tel" name="phone" placeholder="WhatsApp" required><input type="text" name="channel" placeholder="Channel Name" required></div>
-                    <select name="satellite"><option value="Nilesat">Nilesat</option><option value="Arabsat">Arabsat</option><option value="Both">Both</option></select>
-                    <textarea name="message" rows="3" placeholder="Additional details"></textarea>
-                    <button type="submit" class="btn-glow w-full py-3 rounded-full font-bold text-lg"><i class="fab fa-whatsapp text-xl mr-2"></i> Send via WhatsApp</button>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <input type="text" name="name" placeholder="Full Name" required>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="tel" name="phone" placeholder="Phone (WhatsApp)" required>
+                        <input type="text" name="channel" placeholder="Channel Name" required>
+                    </div>
+                    <select name="satellite">
+                        <option value="Nilesat">Nilesat</option>
+                        <option value="Arabsat">Arabsat</option>
+                        <option value="Both">Both</option>
+                    </select>
+                    <textarea name="message" rows="3" placeholder="Additional details (broadcast hours, content type, etc.)"></textarea>
+                    <button type="submit" class="btn-glow w-full py-3 rounded-full font-bold text-lg flex justify-center items-center gap-2"><i class="fab fa-whatsapp text-xl"></i> Send via WhatsApp</button>
                 </form>
-                <div class="flex justify-center gap-6 mt-8 flex-wrap"><a href="https://wa.me/201122394912" class="bg-green-700/50 px-4 py-2 rounded-full flex items-center gap-2"><i class="fab fa-whatsapp"></i> +201122394912</a><a href="https://wa.me/249912500618" class="bg-green-700/50 px-4 py-2 rounded-full flex items-center gap-2"><i class="fab fa-whatsapp"></i> +249912500618</a><a href="mailto:support@freelancers-arab.com" class="bg-blue-700/50 px-4 py-2 rounded-full flex items-center gap-2"><i class="fas fa-envelope"></i> support@freelancers-arab.com</a></div>
+                <div class="flex justify-center gap-6 mt-8 flex-wrap">
+                    <a href="https://wa.me/201122394912" target="_blank" class="bg-green-700/60 px-4 py-2 rounded-full flex items-center gap-2"><i class="fab fa-whatsapp"></i> +201122394912</a>
+                    <a href="https://wa.me/249912500618" target="_blank" class="bg-green-700/60 px-4 py-2 rounded-full flex items-center gap-2"><i class="fab fa-whatsapp"></i> +249912500618</a>
+                    <a href="mailto:support@freelancers-arab.com" class="bg-blue-700/60 px-4 py-2 rounded-full flex items-center gap-2"><i class="fas fa-envelope"></i> support@freelancers-arab.com</a>
+                </div>
             </div>
         </div>
-        <footer class="text-center text-gray-400 mt-20 border-t border-white/10 pt-6">© 2025 Netsat – القاهرة، مصر. برمجيات مفتوحة المصدر برخص GPL/MIT.</footer>
+
+        <footer class="text-center text-gray-400 mt-20 border-t border-white/10 pt-6 text-sm">
+            <p>© 2025 Netsat – القاهرة، مصر. جميع البرمجيات المذكورة مفتوحة المصدر برخص GPL/MIT. <br> متوفر بالعربية والإنجليزية – حلول موثوقة للبث الفضائي عبر الإنترنت.</p>
+        </footer>
     </div>
 
     <script>
-        // إعدادات المؤشر
+        // إخفاء شاشة التحميل
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => loader.remove(), 1000);
+            }, 1200);
+        });
+
+        // المؤشر المخصص
         const cursor = document.querySelector('.custom-cursor');
         const dot = document.querySelector('.cursor-dot');
         document.addEventListener('mousemove', (e) => {
@@ -247,63 +305,44 @@ cat << 'EOF' > index.html
             dot.style.left = e.clientX + 'px';
             dot.style.top = e.clientY + 'px';
         });
-        // إخفاء التحميل
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('loader').style.display = 'none';
-                }, 1000);
-            }, 1500);
-        });
-        // تشغيل الموسيقى
-        let audioPlaying = false;
-        const audio = document.getElementById('bg-music');
-        function toggleAudio() {
-            if (audioPlaying) {
-                audio.pause();
-                document.getElementById('audio-icon').classList.remove('fa-volume-up');
-                document.getElementById('audio-icon').classList.add('fa-volume-mute');
-            } else {
-                audio.play().catch(e => console.log("User interaction needed"));
-                document.getElementById('audio-icon').classList.remove('fa-volume-mute');
-                document.getElementById('audio-icon').classList.add('fa-volume-up');
-            }
-            audioPlaying = !audioPlaying;
-        }
-        // تأثير الكتابة
-        var typedAr = new Typed('#typed-ar', {
-            strings: ['حلول البث الفضائي', 'عبر الإنترنت', 'بتقنيات مفتوحة المصدر'],
-            typeSpeed: 80,
+
+        // Typed.js للنصوص المتحركة
+        new Typed('#typed-ar', {
+            strings: ['حلول البث الفضائي', 'عبر الإنترنت', 'بتقنيات مفتوحة المصدر', 'بأقل التكاليف'],
+            typeSpeed: 70,
             backSpeed: 40,
             loop: true,
             showCursor: false
         });
-        var typedEn = new Typed('#typed-en', {
-            strings: ['Satellite Broadcasting', 'Over the Internet', 'Open Source Power'],
-            typeSpeed: 80,
+        new Typed('#typed-en', {
+            strings: ['Satellite Broadcasting', 'Over the Internet', 'Open Source Power', 'Lowest Cost'],
+            typeSpeed: 70,
             backSpeed: 40,
             loop: true,
             showCursor: false
         });
+
         // تبديل اللغة
         function toggleLanguage() {
             const ar = document.getElementById('ar-content');
             const en = document.getElementById('en-content');
             const btn = document.getElementById('lang-btn');
-            if (ar.classList.contains('hidden')) {
-                ar.classList.remove('hidden');
-                en.classList.add('hidden');
+            if (ar.classList.contains('hidden-lang')) {
+                ar.classList.remove('hidden-lang');
+                en.classList.add('hidden-lang');
                 document.documentElement.setAttribute('dir', 'rtl');
+                document.documentElement.setAttribute('lang', 'ar');
                 btn.innerHTML = '🌐 العربية';
             } else {
-                ar.classList.add('hidden');
-                en.classList.remove('hidden');
+                ar.classList.add('hidden-lang');
+                en.classList.remove('hidden-lang');
                 document.documentElement.setAttribute('dir', 'ltr');
+                document.documentElement.setAttribute('lang', 'en');
                 btn.innerHTML = '🌐 English';
             }
         }
-        // إرسال واتساب
+
+        // إرسال النموذج إلى واتساب
         function sendWhatsApp(event, lang) {
             event.preventDefault();
             const form = event.target;
@@ -313,104 +352,138 @@ cat << 'EOF' > index.html
             const channel = form.querySelector('[name="channel"]').value;
             const satellite = form.querySelector('[name="satellite"]').value;
             const message = form.querySelector('[name="message"]').value;
-            let text = lang === 'ar' ? `📡 طلب جديد من Netsat%0A👤 الاسم: ${name}%0A📧 البريد: ${email}%0A📞 الهاتف: ${phone}%0A📺 القناة: ${channel}%0A🛰️ القمر: ${satellite}%0A💬 الرسالة: ${message}` : `📡 New Netsat Request%0A👤 Name: ${name}%0A📧 Email: ${email}%0A📞 Phone: ${phone}%0A📺 Channel: ${channel}%0A🛰️ Satellite: ${satellite}%0A💬 Message: ${message}`;
+            let text = '';
+            if (lang === 'ar') {
+                text = `📡 طلب خدمة Netsat جديد%0A👤 الاسم: ${name}%0A📧 البريد: ${email}%0A📞 الهاتف: ${phone}%0A📺 القناة: ${channel}%0A🛰️ القمر: ${satellite}%0A💬 التفاصيل: ${message}`;
+            } else {
+                text = `📡 New Netsat Service Request%0A👤 Name: ${name}%0A📧 Email: ${email}%0A📞 Phone: ${phone}%0A📺 Channel: ${channel}%0A🛰️ Satellite: ${satellite}%0A💬 Details: ${message}`;
+            }
             window.open(`https://wa.me/201122394912?text=${text}`, '_blank');
-            alert(lang === 'ar' ? 'تم فتح واتساب، يرجى الإرسال' : 'WhatsApp opened, please send');
+            alert(lang === 'ar' ? 'تم فتح واتساب، يرجى إرسال الرسالة' : 'WhatsApp opened, please send the message');
             form.reset();
         }
-        // تهيئة AOS و GSAP للتمرير
+
+        // تشغيل الموسيقى (اختياري)
+        let audioPlaying = false;
+        const audio = document.getElementById('bg-music');
+        function toggleAudio() {
+            if (audioPlaying) {
+                audio.pause();
+                document.getElementById('audio-icon').classList.remove('fa-volume-up');
+                document.getElementById('audio-icon').classList.add('fa-volume-mute');
+            } else {
+                audio.play().catch(e => console.log("تفاعل المستخدم مطلوب لتشغيل الموسيقى"));
+                document.getElementById('audio-icon').classList.remove('fa-volume-mute');
+                document.getElementById('audio-icon').classList.add('fa-volume-up');
+            }
+            audioPlaying = !audioPlaying;
+        }
+
+        // تفعيل AOS و GSAP
         AOS.init({ duration: 1000, once: false, mirror: true });
         gsap.registerPlugin(ScrollTrigger);
-        gsap.from('.glass-card', { opacity: 0, y: 100, stagger: 0.2, duration: 1, scrollTrigger: { trigger: '.glass-card', start: 'top 80%', toggleActions: 'play none none reverse' } });
+        gsap.from('.glass-card', { opacity: 0, y: 50, stagger: 0.15, duration: 0.8, scrollTrigger: { trigger: '.glass-card', start: 'top 85%', toggleActions: 'play none none reverse' } });
     </script>
 
-    <!-- مشهد Three.js المتطور -->
+    <!-- Three.js المشهد الخارق -->
     <script>
         (function initThree() {
             const scene = new THREE.Scene();
             scene.background = null;
-            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.set(0, 2, 12);
+            const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 1.5, 12);
             const renderer = new THREE.WebGLRenderer({ alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(window.devicePixelRatio);
             document.body.appendChild(renderer.domElement);
-            // جسيمات المجرة
-            const particlesGeometry = new THREE.BufferGeometry();
-            const particlesCount = 2000;
-            const posArray = new Float32Array(particlesCount * 3);
-            for (let i = 0; i < particlesCount; i++) {
-                posArray[i*3] = (Math.random() - 0.5) * 40;
-                posArray[i*3+1] = (Math.random() - 0.5) * 20;
-                posArray[i*3+2] = (Math.random() - 0.5) * 30 - 15;
+
+            // جسيمات نجمية
+            const starCount = 1800;
+            const starPos = new Float32Array(starCount * 3);
+            for (let i = 0; i < starCount; i++) {
+                starPos[i*3] = (Math.random() - 0.5) * 200;
+                starPos[i*3+1] = (Math.random() - 0.5) * 100;
+                starPos[i*3+2] = (Math.random() - 0.5) * 80 - 40;
             }
-            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-            const particlesMaterial = new THREE.PointsMaterial({ color: 0x88aaff, size: 0.08, transparent: true, opacity: 0.6 });
-            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-            scene.add(particlesMesh);
-            // كرة أرضية ذهبية
-            const globeGeometry = new THREE.SphereGeometry(1.8, 64, 64);
-            const globeMaterial = new THREE.MeshStandardMaterial({ color: 0x0a3366, emissive: 0x002244, roughness: 0.2, metalness: 0.9 });
-            const globe = new THREE.Mesh(globeGeometry, globeMaterial);
+            const starGeo = new THREE.BufferGeometry();
+            starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+            const starMat = new THREE.PointsMaterial({ color: 0x88aaff, size: 0.1, transparent: true });
+            const stars = new THREE.Points(starGeo, starMat);
+            scene.add(stars);
+
+            // كرة أرضية رئيسية
+            const globeGeo = new THREE.SphereGeometry(1.6, 128, 128);
+            const globeMat = new THREE.MeshStandardMaterial({ color: 0x0a2f5a, roughness: 0.3, metalness: 0.7, emissive: 0x001133 });
+            const globe = new THREE.Mesh(globeGeo, globeMat);
             scene.add(globe);
+
             // شبكة سلكية خارجية
-            const wireframeMat = new THREE.MeshBasicMaterial({ color: 0x33ccff, wireframe: true, transparent: true });
-            const wireframeGlobe = new THREE.Mesh(new THREE.SphereGeometry(1.85, 32, 32), wireframeMat);
-            scene.add(wireframeGlobe);
-            // حلقات
-            const ringGeo = new THREE.TorusGeometry(2.2, 0.03, 64, 300);
-            const ringMat = new THREE.MeshStandardMaterial({ color: 0x00aaff, emissive: 0x004466 });
-            const ring = new THREE.Mesh(ringGeo, ringMat);
-            ring.rotation.x = Math.PI / 2;
-            scene.add(ring);
-            const ring2 = new THREE.Mesh(ringGeo, ringMat);
+            const wireMat = new THREE.MeshBasicMaterial({ color: 0x33ccff, wireframe: true, transparent: true, opacity: 0.25 });
+            const wireGlobe = new THREE.Mesh(new THREE.SphereGeometry(1.65, 48, 48), wireMat);
+            scene.add(wireGlobe);
+
+            // حلقات دوارة
+            const ringGeo = new THREE.TorusGeometry(2.0, 0.04, 128, 400);
+            const ringMatBlue = new THREE.MeshStandardMaterial({ color: 0x00aaff, emissive: 0x004466 });
+            const ring1 = new THREE.Mesh(ringGeo, ringMatBlue);
+            ring1.rotation.x = Math.PI / 2;
+            scene.add(ring1);
+            const ring2 = new THREE.Mesh(ringGeo, ringMatBlue);
             ring2.rotation.z = Math.PI / 3;
             ring2.rotation.x = Math.PI / 3;
             scene.add(ring2);
-            // أقمار صناعية صغيرة
+
+            // أقمار صناعية
             const sats = [];
-            for (let i = 0; i < 12; i++) {
-                const sat = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.1, 0.3), new THREE.MeshStandardMaterial({ color: 0xffaa66, emissive: 0x442200 }));
+            for (let i = 0; i < 16; i++) {
+                const satGeo = new THREE.BoxGeometry(0.1, 0.1, 0.3);
+                const satMat = new THREE.MeshStandardMaterial({ color: 0xffaa66, emissive: 0x442200 });
+                const sat = new THREE.Mesh(satGeo, satMat);
                 scene.add(sat);
-                sats.push({ mesh: sat, angle: (i / 12) * Math.PI * 2, radius: 2.6, speed: 0.003 });
+                sats.push({ mesh: sat, angle: (i / 16) * Math.PI * 2, radius: 2.4, speed: 0.002 + Math.random() * 0.003 });
             }
-            // إضاءة ديناميكية
+
+            // إضاءة محيطة وموجهة
             const ambient = new THREE.AmbientLight(0x222222);
             scene.add(ambient);
             const dirLight = new THREE.DirectionalLight(0xffffff, 1);
             dirLight.position.set(2, 5, 3);
             scene.add(dirLight);
-            const backLight = new THREE.PointLight(0x2266ff, 0.5);
-            backLight.position.set(-2, 1, -4);
-            scene.add(backLight);
-            // متغيرات للتفاعل مع الماوس
+            const fillLight = new THREE.PointLight(0x2266ff, 0.5);
+            fillLight.position.set(-2, 1, 4);
+            scene.add(fillLight);
+
+            // تفاعل الماوس مع الكاميرا
             let mouseX = 0, mouseY = 0;
             document.addEventListener('mousemove', (e) => {
                 mouseX = (e.clientX / window.innerWidth) * 2 - 1;
                 mouseY = (e.clientY / window.innerHeight) * 2 - 1;
             });
+
             function animate() {
                 requestAnimationFrame(animate);
                 globe.rotation.y += 0.002;
-                wireframeGlobe.rotation.y += 0.002;
-                ring.rotation.z += 0.005;
-                ring2.rotation.x += 0.003;
-                ring2.rotation.y += 0.002;
-                particlesMesh.rotation.y -= 0.0005;
-                particlesMesh.rotation.x += 0.0003;
+                wireGlobe.rotation.y += 0.002;
+                ring1.rotation.z += 0.003;
+                ring2.rotation.x += 0.002;
+                ring2.rotation.y += 0.001;
+                stars.rotation.y -= 0.0003;
+                stars.rotation.x += 0.0002;
+
                 sats.forEach(sat => {
                     sat.angle += sat.speed;
                     sat.mesh.position.x = Math.cos(sat.angle) * sat.radius;
                     sat.mesh.position.z = Math.sin(sat.angle) * sat.radius;
-                    sat.mesh.position.y = Math.sin(sat.angle * 2) * 0.3;
+                    sat.mesh.position.y = Math.sin(sat.angle * 2) * 0.2;
                 });
-                // تتبع الكاميرا للماوس برفق
-                camera.position.x += (mouseX * 1.2 - camera.position.x) * 0.05;
+
+                camera.position.x += (mouseX * 1.0 - camera.position.x) * 0.05;
                 camera.position.y += (-mouseY * 0.8 - camera.position.y) * 0.05;
-                camera.lookAt(0, 0, 0);
+                camera.lookAt(0, 0.2, 0);
                 renderer.render(scene, camera);
             }
             animate();
+
             window.addEventListener('resize', () => {
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
@@ -420,5 +493,3 @@ cat << 'EOF' > index.html
     </script>
 </body>
 </html>
-EOF
-echo "تم إنشاء الصفحة الخارقة بنجاح"
